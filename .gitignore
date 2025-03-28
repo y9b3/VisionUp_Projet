@@ -1,3 +1,10 @@
 .env
 .env.runtime
 .DS_Store
+
+
+# Fichiers compilés Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
