@@ -1,0 +1,48 @@
+version: '3.8'  # Assure-toi que cette ligne est absente si tu utilises Docker Compose V2
+
+services:
+  backend:
+    build: ./backend
+    container_name: visionup_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./frontend
+    container_name: visionup_frontend
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+      - "8081:8081"
+    env_file:
+      - .env
+      - .env.runtime
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:latest
+    container_name: visionup_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: visionup_user
+      POSTGRES_PASSWORD: visionup_password
+      POSTGRES_DB: visionup_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
