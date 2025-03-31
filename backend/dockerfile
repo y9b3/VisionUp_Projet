@@ -1,6 +1,8 @@
 # Utilisation de l'image Python officielle
 FROM python:3.10
 
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 # Définir le répertoire de travail
 WORKDIR /app
 
