@@ -3,8 +3,7 @@ FROM node:18
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Installer expo-cli globalement
-RUN yarn global add expo-cli
+
 
 # Installer watchman (important pour React Native)
 RUN apt-get update && apt-get install -y \
@@ -16,6 +15,7 @@ COPY package.json yarn.lock ./
 
 # Installer les dépendances
 RUN yarn install 
+RUN yarn add expo
 
 # Copier le reste du code
 COPY . .
