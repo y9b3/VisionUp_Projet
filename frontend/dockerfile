@@ -28,4 +28,4 @@ ENV REACT_NATIVE_PACKAGER_HOSTNAME=localhost
 EXPOSE 19000 19001 19002 8081
 
 # Lancer Expo en mode dev
-CMD ["yarn", "start"]
+CMD ["npx", "expo", "start"]
