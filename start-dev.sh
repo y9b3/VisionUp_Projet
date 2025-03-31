@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# 🔍 Détection de l'IP locale selon le système
+# 🔍 Détection de l'IP locale selon l'OS
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
   IP=$(ipconfig getifaddr en0)
   if [ -z "$IP" ]; then
     IP=$(ipconfig getifaddr en1)
   fi
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+  # Windows (Git Bash)
+  IP=$(ipconfig | grep "IPv4" | cut -d: -f2 | xargs)
 else
-  # Windows / Linux / WSL
+  # Linux ou WSL
   IP=$(hostname -I | cut -d' ' -f1)
 fi
 
