@@ -6,13 +6,16 @@ WORKDIR /app
 
 # Copier les fichiers du projet dans le conteneur
 COPY . .
-
+COPY wait-for-db.sh ./
 # Installer les dépendances
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+# Rendre exécutable
+RUN chmod +x wait-for-db.sh
 
 # Exposer le port 8000 pour Django
 EXPOSE 8000
 
 # Commande pour démarrer le serveur Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./wait-for-db.sh","python", "manage.py", "runserver", "0.0.0.0:8000"]
